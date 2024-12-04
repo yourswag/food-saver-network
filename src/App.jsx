@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Ngologin from './components/Animated images/Ngologin.jsx';
+import Ngologin from './pages/login/Ngologin.jsx';
 
-import Signup from './components/Animated images/Signup.jsx';
-import Supplierlogin from './components/Animated images/Supplierlogin.jsx';
-import Suppliersignup from './components/Animated images/Suppliersignup.jsx';
-import ForgotPassword from './components/Animated images/ForgotPassword.jsx';
-import Ngoeventuser from './components/Animated images/Ngoeventuser.jsx';
-import DonateMoney from './components/DonateMoney.jsx';
-import DonateFood from './components/DonateFood.jsx';
-import AboutUs from './components/Animated images/AboutUs.jsx';
-import Suppliereventuser from './components/Animated images/Suppliereventuser.jsx';
-import Addevent from './components/Animated images/Addevent.jsx';
+import Signup from './pages/signup/Signup.jsx';
+import Supplierlogin from './pages/login/Supplierlogin.jsx';
+import Suppliersignup from './pages/signup/Suppliersignup.jsx';
+import ForgotPassword from './components/others/ForgotPassword.jsx';
+import Ngoeventuser from './components/others/Ngoeventuser.jsx';
+import DonateMoney from './components/others/DonateMoney.jsx';
+import DonateFood from './components/others/DonateFood.jsx';
+import AboutUs from './pages/AboutUs.jsx';
+import Suppliereventuser from './components/others/Suppliereventuser.jsx';
+import Addevent from './components/others/Addevent.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 
 

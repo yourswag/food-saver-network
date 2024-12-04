@@ -1,5 +1,5 @@
 import React from "react";
-import donation from "../../assets/images/donation.jpg"; // Import the image
+import donation from "../assets/images/donation.jpg"; // Import the image
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaWhatsapp, FaFacebook, FaInstagram } from "react-icons/fa"; // Import icons
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import pic from "../assets/images/pic.jpg"; // Import the image
+import pic from "../../assets/images/pic.jpg"; // Import the image
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
