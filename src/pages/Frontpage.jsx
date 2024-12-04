@@ -1,14 +1,16 @@
 import React from "react";
-import donation from "../../assets/images/donation.jpg"; // Import the image
+import donation from "../assets/images/donation.jpg"; // Import the image
+import supplie from "../assets/images/supplie.jpg"; // Import the image
+
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaWhatsapp, FaFacebook, FaInstagram } from "react-icons/fa"; // Import icons
 
-const AboutUs = () => {
+const Frontpage = () => {
   return (
     <div className="min-h-screen bg-slate-900 py-10 px-5 rounded-[45px]">
       {/* Page Heading */}
       <div className="max-w-5xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-100">About Us</h1>
+        <h1 className="text-4xl font-bold text-gray-100"></h1>
         <p className="mt-4 text-lg text-gray-400">
           Making a difference, one step at a time. Learn about our mission, vision, and the impact we aim to create.
         </p>
@@ -35,19 +37,37 @@ const AboutUs = () => {
         </div>
       
         {/* Section 2 */}
-        <div>
-          <DotLottieReact
-            src="https://lottie.host/a1e57666-5f3b-4065-aafb-b7df79a57eb6/3glu5y5hHm.lottie"
-            loop
-            autoplay
-          />
-        </div>
+        <div className="flex justify-end pr-6">
+  <img
+    src={supplie}
+    alt="Helping Hands"
+    className="rounded-3xl shadow-lg"
+    style={{ width: "400px", height: "auto" }}
+  />
+</div>
+
 
         <div className="flex flex-col justify-center">
           <h2 className="text-2xl font-semibold text-gray-100 mb-4">Our Vision</h2>
           <p className="text-gray-400">
             We envision a world where no one goes hungry and resources are shared equitably. Through innovation, collaboration, and relentless dedication, we strive to build sustainable solutions to food insecurity.
           </p>
+        </div>
+        
+       
+
+        <div className="flex flex-col justify-center">
+          <h2 className="text-2xl font-semibold text-gray-100 mb-4">Our Vision</h2>
+          <p className="text-gray-400">
+            We envision a world where no one goes hungry and resources are shared equitably. Through innovation, collaboration, and relentless dedication, we strive to build sustainable solutions to food insecurity.
+          </p>
+        </div>
+        <div>
+          <DotLottieReact
+            src="https://lottie.host/a1e57666-5f3b-4065-aafb-b7df79a57eb6/3glu5y5hHm.lottie"
+            loop
+            autoplay
+          />
         </div>
       </div>
 
@@ -121,4 +141,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default Frontpage;

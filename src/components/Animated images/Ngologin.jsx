@@ -34,7 +34,7 @@ const Ngologin = () => {
 
       {/* Larger Fixed Glassmorphism Box */}
       <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-6 sm:p-12 md:p-20 rounded-xl 
-        bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-3xl shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[400px] sm:h-[600px]">
+        bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-sm shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[400px] sm:h-[600px]">
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
           <DotLottieReact
             src="https://lottie.host/5930968b-64ef-44a8-adaa-83f363964ceb/g0R25OiP5C.lottie"

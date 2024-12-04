@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Ngologin from './components/Animated images/Ngologin.jsx';
-import Dashboard from './pages/Dashboard.jsx';
+
 import Signup from './components/Animated images/Signup.jsx';
 import Supplierlogin from './components/Animated images/Supplierlogin.jsx';
 import Suppliersignup from './components/Animated images/Suppliersignup.jsx';
@@ -13,21 +13,19 @@ import DonateFood from './components/DonateFood.jsx';
 import AboutUs from './components/Animated images/AboutUs.jsx';
 import Suppliereventuser from './components/Animated images/Suppliereventuser.jsx';
 import Addevent from './components/Animated images/Addevent.jsx';
-import Navbar from './components/Navbar.jsx';
-
+import Dashboard from './pages/Dashboard.jsx';
 
 
 
 function App() {
   return (
-    <div>
-       <div>
-      {/* <Navbar/> */}
-      </div>
-      <div>
-    <Routes>
     
+    <Routes>
+      
+      
       <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    
       <Route path="/Ngologin" element={<Ngologin />} />
       <Route path="/Signup" element={<Signup/>} />
       <Route path="/DonateMoney" element={<DonateMoney/>} />
@@ -39,13 +37,12 @@ function App() {
       <Route path="/addevent" element={<Addevent/>}/>
       <Route path="/DonateFood" element={<DonateFood/>}/>
       <Route path="/aboutus" element={<AboutUs/>}/>
-      {/* /forgot-password
-      /about-us(routs)
-      foodDonar(variable name) */}
-
+    
+    
+    
     </Routes>
-    </div>
-    </div>
+  
+    
   );
 
 }

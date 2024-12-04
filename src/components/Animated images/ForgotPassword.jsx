@@ -15,7 +15,7 @@ const ForgotPassword = () => {
       {/* Glassmorphism Box */}
       <div
         className="fixed top-10 left-1/2 transform -translate-x-1/2 p-20 rounded-xl 
-        bg-gradient-to-r from-violet-300 via-transparent to-transparent bg-opacity-10 backdrop-blur-3xl shadow-lg w-3/4 h-[600px] flex items-center justify-center space-y-10"
+        bg-gradient-to-r from-slate-950 via-transparent to-slate-950 bg-opacity-10 backdrop-blur-3xl shadow-lg w-3/4 h-[600px] flex items-center justify-center space-y-10"
       >
         {/* Forgot Password Form */}
         <div className="w-full max-w-md p-10 rounded-xl bg-white shadow-2xl">

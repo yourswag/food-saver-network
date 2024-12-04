@@ -45,7 +45,7 @@ const Supplierlogin = () => {
 
       {/* Larger Fixed Glassmorphism Box */}
       <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-20 rounded-xl 
-        bg-gradient-to-r  via-transparent to-transparent bg-opacity-10 backdrop-blur-3xl shadow-lg w-3/4 h-[600px]">
+        bg-gradient-to-r  via-transparent to-transparent bg-opacity-10 backdrop-blur-lg shadow-lg w-3/4 h-[600px]">
         
         {/* Animation */}
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
