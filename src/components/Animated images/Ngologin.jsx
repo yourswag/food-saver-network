@@ -1,9 +1,28 @@
-import React from 'react';
+
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For programmatic navigation
 import pic from "../../assets/images/pic.jpg"; // Import the image
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Ngologin = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Mock authentication logic
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === "admin" && password === "password") {
+      // Navigate to the event page on successful login
+      navigate("/event");
+    } else {
+      setError("Invalid username or password");
+    }
+  };
+
   return (
     <div className="max-h-screen w-screen relative">
       {/* Fixed Background Image */}
@@ -13,7 +32,7 @@ const Ngologin = () => {
         alt="Sample"
       />
 
-      {/* Larger Fixed Glassmorphism Box, Positioned Higher */}
+      {/* Larger Fixed Glassmorphism Box */}
       <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-6 sm:p-12 md:p-20 rounded-xl 
         bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-3xl shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[400px] sm:h-[600px]">
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
@@ -24,12 +43,14 @@ const Ngologin = () => {
           />
         </div>
 
-        {/* Login Form with Glassmorphism */}
+        {/* Login Form */}
         <div className="fixed top-72 sm:top-72 md:top-72 -right-24 transform -translate-x-1/2 -translate-y-1/2 w-80 sm:w-96 p-6 sm:p-8 md:p-8 
         rounded-xl bg-gradient-to-r via-transparent to-transparent 
         bg-opacity-20 backdrop-blur-lg shadow-lg">
-          <form action="" className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <h2 className="text-3xl text-white text-center">LOGIN</h2>
+
+            {error && <p className="text-red-500 text-center">{error}</p>}
 
             {/* Username Input */}
             <div>
@@ -37,6 +58,8 @@ const Ngologin = () => {
                 type="text"
                 id="username"
                 name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full p-3 bg-transparent border-b-2 border-white focus:outline-none 
                   text-white font-semibold placeholder-white"
                 placeholder=" username"
@@ -49,6 +72,8 @@ const Ngologin = () => {
                 type="password"
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-3 bg-transparent border-b-2 border-white focus:outline-none   text-white font-semibold placeholder-white"
                 placeholder=" password"
               />
@@ -64,13 +89,13 @@ const Ngologin = () => {
 
             {/* Login Button */}
             <div>
-            <Link
-                to="/login"
+              <button
+                type="submit"
                 className="w-full block text-center p-3 bg-white text-blue-950 rounded-3xl mt-4"
               >
-               LOGIN
-              </Link>
-            </div>
+                LOGIN
+              </button>
+            </div> 
 
             <div className="text-center">
               <Link
@@ -80,7 +105,6 @@ const Ngologin = () => {
                 Don't have an account? Sign Up
               </Link>
             </div>
-
           </form>
         </div>
       </div>
