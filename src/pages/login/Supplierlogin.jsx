@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import pic from "../../assets/images/pic.jpg";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Link } from 'react-router-dom';
@@ -11,26 +12,33 @@ const Supplierlogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // List of valid users
-  const validUsers = [
-    { username: 'user1', password: 'pass123' },
-    { username: 'supplier2', password: 'supplier@456' },
-    { username: 'admin', password: 'admin123' },
-  ];
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission
 
-    // Check if credentials match any user in the list
-    const userFound = validUsers.find(
-      (user) => user.username === username && user.password === password
-    );
+    // Clear any previous errors
+    setError('');
+    setIsLoading(true); // Start loading
 
-    if (userFound) {
-      navigate('/supplierevent'); // Navigate to the Event Page
-    } else {
-      setError('Invalid username or password'); // Display error message
+    try {
+      // Make the API request to the backend (replace URL with actual endpoint)
+      const response = await axios.post("http://localhost:8000/api/v1/fooddonate/login", {
+        username,
+        password
+      });
+
+      // Check the response
+      if (response.data.success) {
+        // Navigate to the supplier event page if login is successful
+        navigate('/supplierevent');
+      } else {
+        setError('Invalid username or password'); // Set error if login fails
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.'); // Set error if API request fails
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -44,8 +52,8 @@ const Supplierlogin = () => {
       />
 
       {/* Larger Fixed Glassmorphism Box */}
-      <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-20 rounded-xl 
-        bg-gradient-to-r  via-transparent to-transparent bg-opacity-10 backdrop-blur-lg shadow-lg w-3/4 h-[600px]">
+      <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-6 sm:p-12 md:p-20 rounded-xl 
+        bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-sm shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[450px] sm:h-[600px]">
         
         {/* Animation */}
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
@@ -57,9 +65,9 @@ const Supplierlogin = () => {
         </div>
 
         {/* Login Form */}
-        <div className="fixed top-72 -right-24 transform -translate-x-1/2 -translate-y-1/2 w-96 p-8 
-          rounded-xl bg-gradient-to-r  via-transparent to-transparent 
-          bg-opacity-20 backdrop-blur-lg shadow-lg">
+        <div className="fixed top-72 sm:top-72 md:top-72 -right-24 transform -translate-x-1/2 -translate-y-1/2 w-96 p-8 sm:p-8 md:p-8 
+          rounded-xl bg-gradient-to-r via-transparent to-transparent 
+          bg-opacity-20 backdrop-blur-lg shadow-lg overflow-y-auto h-[450px]"> {/* Added scrollbar */}
           <form onSubmit={handleLogin} className="space-y-6">
             <h2 className="text-3xl text-white text-center">LOGIN</h2>
 
@@ -100,9 +108,11 @@ const Supplierlogin = () => {
             <div>
               <button
                 type="submit"
-                className="w-full p-3 bg-violet-500 text-white rounded-3xl hover:bg-violet-600 transition duration-300"
+                className={`w-full p-3 text-white rounded-3xl 
+                  ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-violet-500 hover:bg-violet-600'}`}
+                disabled={isLoading} // Disable button when loading
               >
-                Login
+                {isLoading ? 'Logging in...' : 'Login'}
               </button>
             </div>
 

@@ -1,7 +1,6 @@
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For programmatic navigation
+import axios from "axios"; // Import Axios
 import pic from "../../assets/images/pic.jpg"; // Import the image
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
@@ -12,14 +11,25 @@ const Ngologin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook for navigation
 
-  // Mock authentication logic
-  const handleLogin = (e) => {
+  // Handle login logic with axios
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === "admin" && password === "password") {
-      // Navigate to the event page on successful login
-      navigate("/event");
-    } else {
-      setError("Invalid username or password");
+
+    try {
+      // Sending login request
+      const response = await axios.post("http://localhost:8000/api/v1/ngos/login", {
+        username,
+        password,
+      });
+
+      // Check if the server response contains a success property and it's true
+      if (response.data.success === true) {
+        navigate("/event"); // Navigate to the event page
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
     }
   };
 

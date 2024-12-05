@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger icon from react-icons
-import logo from "../assets/images/logo.png";
+
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -50,18 +50,16 @@ const Navbar = () => {
 
   return (
     <div className="max-h-screen w-screen relative">
-      <nav className="w-11/12 h-16 flex items-center px-6 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 
-        bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 backdrop-blur-3xl rounded-3xl">
-        <div className="flex items-center justify-between w-full">
-          {/* Logo */}
-          <Link to="/dashboard">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-16 w-auto mr-6 shadow-[0px_4px_6px_rgba(0,0,0,0.1)] cursor-pointer"
-            />
-          </Link>
-
+  <nav className="w-11/12 h-16 flex items-center px-6 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 
+    bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 backdrop-blur-3xl rounded-3xl">
+    <div className="flex items-center justify-between w-full">
+      {/* Dashboard Button with "Food Saver Network" */}
+      <a 
+  href="/dashboard" 
+  className="text-white text-2xl font-bold rounded-md transition duration-300 whitespace-nowrap"
+>
+  Food Saver Network
+</a>
           {/* Hamburger Menu */}
           <button
             ref={hamburgerRef}
@@ -77,22 +75,23 @@ const Navbar = () => {
               to="/"
               className="px-4 py-2 bg-opacity-20 text-white rounded-3xl border border-transparent focus:outline-none hover:border-white focus:ring-2 focus:ring-white"
             >
-              EVENTS
+              MEMBERSHIP
             </Link>
 
             {/* JOIN US Dropdown */}
             <div className="relative" ref={dropdownRef2}>
               <button
                 onClick={() => toggleDropdown(2)}
-                className="px-4 py-2 bg-opacity-20 text-white rounded-3xl border border-transparent focus:outline-none hover:border-white focus:ring-2 font-semibold focus:ring-white"
+                className="px-4 py-2 bg-opacity-20 text-white rounded-3xl
+                 border border-transparent focus:outline-none hover:border-white focus:ring-2 font-semibold focus:ring-white"
               >
                 JOIN US
               </button>
               {openDropdown === 2 && (
                 <div
-                  className="absolute left-1/2 transform -translate-x-1/2 text-sm mt-2 flex flex-col w-max 
+                  className="absolute left-1/2 transform -translate-x-1/2 text-sm mt-2 flex flex-col w-max
                     bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 
-                    backdrop-blur-5xl rounded-3xl border border-white/30 shadow-lg p-8"
+                    backdrop-blur-5xl rounded-3xl border border-white/30 shadow-lg p-4"
                 >
                   <div className="flex flex-col font-medium items-start space-y-2">
                     <Link
@@ -114,7 +113,8 @@ const Navbar = () => {
 
             <Link
               to="/aboutus"
-              className="px-4 py-2 bg-opacity-20 text-white rounded-3xl border border-transparent focus:outline-none hover:border-white focus:ring-2 focus:ring-white"
+              className="px-4 py-2 bg-opacity-20 text-white rounded-3xl 
+              border border-transparent focus:outline-none hover:border-white focus:ring-2 focus:ring-white"
             >
               ABOUT US
             </Link>
@@ -123,7 +123,8 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRefDonate}>
               <button
                 onClick={() => toggleDropdown(3)}
-                className="px-4 py-2 bg-white text-black rounded-3xl border border-transparent font-semibold hover:border-white focus:outline-none focus:ring-2 focus:ring-white"
+                className="px-4 py-2 bg-white text-black rounded-3xl border border-transparent font-semibold
+               focus:outline-none hover:border-black focus:ring-2 focus:ring-black"
               >
                 DONATE
               </button>
@@ -131,7 +132,7 @@ const Navbar = () => {
                 <div
                   className="absolute left-1/2 transform -translate-x-1/2 text-sm mt-2 flex flex-col w-max 
                     bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 
-                    backdrop-blur-5xl rounded-3xl border border-white/30 shadow-lg p-8"
+                    backdrop-blur-5xl rounded-3xl border border-white/30 shadow-lg p-4"
                 >
                   <div className="flex flex-col items-start space-y-2">
                     <Link
@@ -157,7 +158,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden absolute top-16 left-1/2 transform -translate-x-1/2 bg-transparent p-6 rounded-lg shadow-lg w-full flex flex-col items-center gap-4">
             <Link to="/" className="text-white text-lg" onClick={toggleMobileMenu}>
-              EVENTS
+              MEMBERSHIP
             </Link>
             <Link
               to="/aboutus"
