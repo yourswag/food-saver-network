@@ -14,7 +14,6 @@ const Signup = () => {
     phone: "",
     email: "",
     ngodarpanlicense: "",
-    file: "",
   });
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook for navigation
@@ -38,8 +37,8 @@ const Signup = () => {
 
       // Check if the server response contains a success property and it's true
       if (response.data.success === true) {
-        alert("Signup successful!");
-        navigate("/event"); // Navigate to the event page
+        alert("Signup successful! Redirecting to login page...");
+        navigate("/Ngologin"); // Navigate to the login page
       } else {
         setError("Signup failed. Please try again.");
       }
@@ -60,6 +59,19 @@ const Signup = () => {
       {/* Larger Fixed Glassmorphism Box */}
       <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-6 sm:p-12 md:p-20 rounded-xl 
         bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-sm shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[400px] sm:h-[600px]">
+        {/* Top-Right Button */}
+        <div className="max-h-screen w-screen relative">
+          <nav className="w-screen h-16 flex items-center px-6 fixed -top-6 left-1/2 transform -translate-x-1/2 z-50 
+            bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 backdrop-blur-3xl rounded-3xl">
+            <a 
+              href="/dashboard" 
+              className="text-white text-2xl font-bold rounded-md transition duration-300 whitespace-nowrap"
+            >
+              Food Saver Network
+            </a>
+          </nav>
+        </div>
+
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
           <DotLottieReact
             src="https://lottie.host/22dec8a7-cfaf-4c5e-aa8e-be1fa3cd4540/ni8NCcr1Mh.lottie"
@@ -71,13 +83,13 @@ const Signup = () => {
         {/* Signup Form */}
         <div className="fixed top-72 sm:top-72 md:top-72 -right-24 transform -translate-x-1/2 -translate-y-1/2 w-80 sm:w-96 p-6 sm:p-8 md:p-8 
         rounded-xl bg-gradient-to-r via-transparent to-transparent 
-        bg-opacity-20 backdrop-blur-lg shadow-lg overflow-y-auto h-[450px]"> {/* Added scrollbar */}
+        bg-opacity-20 backdrop-blur-lg shadow-lg overflow-y-auto h-[450px]">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <h2 className="text-3xl text-white text-center">SIGN UP</h2>
+            <h2 className="text-3xl font-bold text-white text-center">REGISTER</h2>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
 
-            {[ 
+            {[
               { id: "name", type: "text", placeholder: "Ngo's Name" },
               { id: "username", type: "text", placeholder: "Username" },
               { id: "password", type: "password", placeholder: "Password" },
@@ -110,7 +122,7 @@ const Signup = () => {
                 type="submit"
                 className="w-full block text-center p-3 bg-white text-blue-950 rounded-3xl mt-4"
               >
-                SIGN UP
+                REGISTER
               </button>
             </div>
 

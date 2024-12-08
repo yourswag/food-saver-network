@@ -75,7 +75,7 @@ const Navbar = () => {
               to="/"
               className="px-4 py-2 bg-opacity-20 text-white rounded-3xl border border-transparent focus:outline-none hover:border-white focus:ring-2 focus:ring-white"
             >
-              MEMBERSHIP
+              MEMBERS
             </Link>
 
             {/* JOIN US Dropdown */}
@@ -124,7 +124,7 @@ const Navbar = () => {
               <button
                 onClick={() => toggleDropdown(3)}
                 className="px-4 py-2 bg-white text-black rounded-3xl border border-transparent font-semibold
-               focus:outline-none hover:border-black focus:ring-2 focus:ring-black"
+               focus:outline-none hover:border-black focus:ring-3 focus:ring-black"
               >
                 DONATE
               </button>

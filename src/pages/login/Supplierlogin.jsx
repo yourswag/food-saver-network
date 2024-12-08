@@ -23,7 +23,7 @@ const Supplierlogin = () => {
 
     try {
       // Make the API request to the backend (replace URL with actual endpoint)
-      const response = await axios.post("http://localhost:8000/api/v1/fooddonate/login", {
+      const response = await axios.post("http://localhost:8000/api/v1/foodDonors/login", {
         username,
         password
       });
@@ -55,6 +55,20 @@ const Supplierlogin = () => {
       <div className="fixed top-10 left-1/2 transform -translate-x-1/2 p-6 sm:p-12 md:p-20 rounded-xl 
         bg-gradient-to-r via-transparent to-transparent bg-opacity-10 backdrop-blur-sm shadow-lg w-11/12 sm:w-3/4 md:w-3/4 h-[450px] sm:h-[600px]">
         
+         {/* Top-Right Button */}
+         <div className="max-h-screen w-screen relative">
+  <nav className="w-screen h-16 flex items-center px-6 fixed -top-6 left-1/2 transform -translate-x-1/2 z-50 
+    bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 backdrop-blur-3xl rounded-3xl">
+    {/* <div className="flex items-center justify-between w-full"> */}
+      {/* Dashboard Button with "Food Saver Network" */}
+      <a 
+  href="/dashboard" 
+  className="text-white text-2xl font-bold rounded-md transition duration-300 whitespace-nowrap"
+>
+  Food Saver Network
+</a>
+</nav>
+</div>
         {/* Animation */}
         <div className="fixed -left-60 top-1/2 transform -translate-y-1/2 w-100 h-[500px]">
           <DotLottieReact
@@ -69,7 +83,7 @@ const Supplierlogin = () => {
           rounded-xl bg-gradient-to-r via-transparent to-transparent 
           bg-opacity-20 backdrop-blur-lg shadow-lg overflow-y-auto h-[450px]"> {/* Added scrollbar */}
           <form onSubmit={handleLogin} className="space-y-6">
-            <h2 className="text-3xl text-white text-center">LOGIN</h2>
+            <h2 className="text-3xl font-bold text-white text-center">LOGIN</h2>
 
             {/* Error Message */}
             {error && (
@@ -128,12 +142,11 @@ const Supplierlogin = () => {
 
             {/* Sign Up Link */}
             <div className="text-center">
-              <p className="text-white font-semibold mt-4">Don't have an account?</p>
               <Link
                 to="/Suppliersignup"
                 className="w-full block text-center p-3 bg-violet-500 text-white rounded-3xl hover:bg-violet-600 transition duration-300 mt-4"
               >
-                Sign Up
+                Don't have an account? Register
               </Link>
             </div>
           </form>

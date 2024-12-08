@@ -5,7 +5,20 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const DonateMoney = () => {
   return (
-    <div className="max-h-screen w-screen relative">
+    <div className="relative">
+      {/* Top-Right Button */}
+      <div className="max-h-screen w-screen relative">
+        <nav className="w-screen h-16 flex items-center px-6 fixed top-6 left-1/2 transform -translate-x-1/2 z-50 
+          bg-gradient-to-r from-slate-900 via-transparent to-slate-900 bg-opacity-10 backdrop-blur-3xl rounded-3xl">
+          <a
+            href="/dashboard"
+            className="text-white text-2xl font-bold rounded-md transition duration-300 whitespace-nowrap"
+          >
+            Food Saver Network
+          </a>
+        </nav>
+      </div>
+
       {/* Fixed Background Image */}
       <img
         src={pic}
