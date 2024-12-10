@@ -7,20 +7,25 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    name: "",
     username: "",
+    fullName: "",
     password: "",
     location: "",
-    phone: "",
+    contactInfo: "",
     email: "",
-    ngodarpanlicense: "",
+    avatar: "",
+    ngoLicense: null, // Set null for file type initially
   });
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook for navigation
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setFormData({ ...formData, [name]: files[0] }); // Store the file object
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   // Handle signup logic with axios
@@ -28,12 +33,22 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      // Sending signup request
-      const response = await axios.post("http://localhost:8000/api/v1/ngos/signup", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // Create a FormData object to handle file uploads
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
       });
+
+      // Sending signup request
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/ngos/signup",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set the correct content type
+          },
+        }
+      );
 
       // Check if the server response contains a success property and it's true
       if (response.data.success === true) {
@@ -89,28 +104,26 @@ const Signup = () => {
 
             {error && <p className="text-red-500 text-center">{error}</p>}
 
-            {[
-              { id: "name", type: "text", placeholder: "Ngo's Name" },
+            {[ 
               { id: "username", type: "text", placeholder: "Username" },
+              { id: "fullName", type: "text", placeholder: "Full Name" },
               { id: "password", type: "password", placeholder: "Password" },
               { id: "location", type: "text", placeholder: "Location" },
-              { id: "phone", type: "tel", placeholder: "Phone Number", pattern: "[0-9]{10}" },
+              { id: "contactInfo", type: "tel", placeholder: "Phone Number", pattern: "[0-9]{10}" },
               { id: "email", type: "email", placeholder: "Email Address" },
               {
-                id: "ngodarpanlicense",
-                type: "text",
-                placeholder: "NGO DARPAN License Number",
-                pattern: "^[A-Za-z]{2}/\\d{4}/\\d{7}$",
+                id: "ngoLicense",
+                type: "file",
+                placeholder: "NGO DARPAN License",
                 title: "Format: AB/YYYY/XXXXXXX",
               },
-              { id: "file", type: "file", placeholder: "Upload file" },
             ].map(({ id, ...rest }) => (
               <div key={id}>
                 <input
                   {...rest}
                   id={id}
                   name={id}
-                  value={formData[id]}
+                  value={rest.type !== "file" ? formData[id] : undefined} // Avoid setting `value` for file inputs
                   onChange={handleChange}
                   className="w-full p-3 bg-transparent border-b-2 border-white focus:outline-none text-white font-semibold placeholder-white"
                 />

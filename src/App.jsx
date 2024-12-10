@@ -13,6 +13,7 @@ import AboutUs from './pages/AboutUs.jsx';
 import Suppliereventuser from './components/others/Suppliereventuser.jsx';
 import Addevent from './components/others/Addevent.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import Mapini from "./pages/Mapini.jsx";
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
    
         <Routes>
          
-          
+         <Route path="/map" element={<Mapini/>} />
+        
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/Ngologin" element={<Ngologin />} />

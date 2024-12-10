@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Leaflet Map with Routing</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        height: 100dvh;
+        width: 100dvw;
+      }
+      .inputs {
+        position: absolute;
+        top: 20px;
+        left: 50px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      input {
+        padding: 0.7rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        font-size: 1rem;
+        width: 250px;
+      }
+      input:focus {
+        border-color: #007bff;
+      }
+      button {
+        padding: 0.7rem;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      #map {
+        z-index: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .custom-popup {
+        font-weight: bold;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="inputs">
+      <div style="display: flex; align-items: center; gap: 0.5rem">
+        <input id="origin" type="text" placeholder="Enter Origin Address" />
+        <button id="current-location"></button>
+      </div>
+      <input
+        id="destination"
+        type="text"
+        placeholder="Enter Destination Address"
+      />
+      <button id="route">Route</button>
+    </div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+      const map = L.map("map").setView([51.505, -0.09], 13);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+      let originMarker, routingControl;
+      // Smooth Animation for Marker
+      const smoothMarkerMovement = (marker, targetLatLng) => {
+        let startLatLng = marker.getLatLng();
+        let frames = 20;
+        let i = 0;
+        const moveStep = () => {
+          i++;
+          const newLatLng = [
+            startLatLng.lat +
+              (targetLatLng.lat - startLatLng.lat) * (i / frames),
+            startLatLng.lng +
+              (targetLatLng.lng - startLatLng.lng) * (i / frames),
+          ];
+          marker.setLatLng(newLatLng);
+          if (i < frames) {
+            requestAnimationFrame(moveStep);
+          }
+        };
+        moveStep();
+      };
+      // Geolocation Button
+      document.getElementById("current-location").onclick = () => {
+        map.locate({ setView: true, maxZoom: 16 });
+      };
+      map.on("locationfound", (e) => {
+        const { lat, lng } = e.latlng;
+        document.getElementById("origin").value = `${lat},${lng}`;
+        if (!originMarker) {
+          originMarker = L.marker(e.latlng, {
+            draggable: true,
+          })
+            .addTo(map)
+            .bindPopup('<span class="custom-popup">YOU!</span>')
+            .openPopup();
+        } else {
+          originMarker.setLatLng(e.latlng).openPopup();
+        }
+      });
+      // Routing Control
+      document.getElementById("route").onclick = async () => {
+        const originAddress = document.getElementById("origin").value;
+        const destinationAddress = document.getElementById("destination").value;
+        if (!originAddress || !destinationAddress) {
+          alert("Please enter both origin and destination.");
+          return;
+        }
+        try {
+          const originCoords = await geocodeAddress(originAddress);
+          const destinationCoords = await geocodeAddress(destinationAddress);
+          // Remove previous routing control if any
+          if (routingControl) {
+            map.removeControl(routingControl);
+          }
+          routingControl = L.Routing.control({
+            waypoints: [
+              L.latLng(originCoords.lat, originCoords.lng),
+              L.latLng(destinationCoords.lat, destinationCoords.lng),
+            ],
+            routeWhileDragging: true,
+          }).addTo(map);
+          if (!originMarker) {
+            originMarker = L.marker([originCoords.lat, originCoords.lng], {
+              draggable: true,
+            })
+              .addTo(map)
+              .bindPopup('<span class="custom-popup">YOU!</span>')
+              .openPopup();
+          } else {
+            originMarker.setLatLng([originCoords.lat, originCoords.lng]);
+          }
+        } catch (error) {
+          console.error("Error while geocoding:", error);
+          alert("Unable to geocode addresses.");
+        }
+      };
+      // Geocoding Function
+      async function geocodeAddress(address) {
+        const apiKey = "040e6c0e5ca9400eaeae724b5223d10a"; // Replace with your OpenCage API key
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry;
+          return { lat, lng };
+        } else {
+          alert("Address not found!");
+          throw new Error("Address not found");
+        }
+      }
+    </script>
+  </body>
+</html>
